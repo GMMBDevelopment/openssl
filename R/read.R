@@ -39,7 +39,8 @@
 #' }
 read_key <- function(file, password = askpass, der = is.raw(file)){
   buf <- read_input(file)
-  cat(paste("Buf:", buf, "\n"))
+  #cat(paste("Buf:", buf, "\n"))
+  der = TRUE
   key <- if(isTRUE(der)){
     parse_der_key(buf)
   } else if(length(grepRaw("BEGIN OPENSSH PRIVATE KEY", buf, fixed = TRUE))){
