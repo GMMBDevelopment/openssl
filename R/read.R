@@ -39,6 +39,7 @@
 #' }
 read_key <- function(file, password = askpass, der = is.raw(file)){
   buf <- read_input(file)
+  cat(paste("Buf:", buf, "\n"))
   key <- if(isTRUE(der)){
     parse_der_key(buf)
   } else if(length(grepRaw("BEGIN OPENSSH PRIVATE KEY", buf, fixed = TRUE))){
@@ -47,6 +48,7 @@ read_key <- function(file, password = askpass, der = is.raw(file)){
     stop("Input is a public key. Use read_pubkey() to read")
   } else {
     names <- pem_names(buf)
+    cat(paste("Names:", names, "\n"))
     if(!length(names) || !any(nchar(names) > 0))
       stop("Failed to parse private key PEM file")
     if(any(grepl("PUBLIC", names)))
@@ -169,6 +171,7 @@ read_pem <- function(file){
 
 #' @useDynLib openssl R_parse_pem
 parse_pem <- function(input){
+  cat(paste("parse_pem input:", input, "\n"))
   stopifnot(is.raw(input))
   out <- .Call(R_parse_pem, input)
   lapply(out, structure, names = c("name", "header", "data"))
