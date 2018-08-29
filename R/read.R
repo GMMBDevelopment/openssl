@@ -142,8 +142,8 @@ read_input <- function(x){
       out
     }
   } else if(is.character(x) && length(x) == 1 && !grepl("\n", x) && !is_pubkey_str(x)){
-    print(paste("Did find backslash ns?", grepl("\n", x)))
-    print(paste("In this file:", x))
+    cat(paste("Did find backslash ns?", grepl("\n", x), "\n"))
+    cat(paste("In this file:", x, "\n"))
     x <- normalizePath(path.expand(x))
     info <- file.info(x)
     stopifnot(!info$isdir)
