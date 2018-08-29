@@ -142,7 +142,7 @@ read_input <- function(x){
       out
     }
   } else if(is.character(x) && length(x) == 1 && !grepl("\n", x) && !is_pubkey_str(x)){
-    x <- normalizePath(path.expand(x), mustWork = TRUE)
+    x <- normalizePath(path.expand(x))
     info <- file.info(x)
     stopifnot(!info$isdir)
     readBin(x, raw(), info$size)
